@@ -9,21 +9,50 @@
 
 <script>
   // ...and a script with the following code:
+  var audio = new Audio('connect.wav');
   let dali = new Image();
   dali.src = 'img1.jpg';
   dali.onload = () => {
     const canvas = new headbreaker.Canvas('my-canvas', {
-      width: 700, height: 700, image: dali,
-	  pieceSize: 70,
+      width: 650, height: 800, image: dali,
+	  pieceSize: 100,
 	  borderFill: 10, strokeWidth: 2,
 	  outline: new headbreaker.outline.Rounded(),
 	    preventOffstageDrag: true,
+		//fixed: true
     });
 	canvas.autoconnect();
 	canvas.scale(1);
-    canvas.autogenerate();
+	//canvas.adjustImagesToPuzzleHeight();
+    canvas.autogenerate({
+    horizontalPiecesCount: 5,
+    verticalPiecesCount: 6,
+    insertsGenerator: headbreaker.generators.random
+  });
     canvas.shuffle(0.7);
     canvas.draw();
+	canvas.onConnect((_piece, figure, _target, targetFigure) => {
+    // play sound
+    audio.play();
+
+    // paint borders on click
+    // of conecting and conected figures
+    figure.shape.stroke('yellow');
+    targetFigure.shape.stroke('yellow');
+    canvas.redraw();
+
+    setTimeout(() => {
+      // restore border colors
+      // later
+      figure.shape.stroke('black');
+      targetFigure.shape.stroke('black');
+      canvas.redraw();
+    }, 200);
+  });
+
+  canvas.onDisconnect((it) => {
+    audio.play();
+  });
 	
   }
 </script>
