@@ -1,0 +1,32 @@
+<html>
+<head>
+	<script src="https://flbulgarelli.github.io/headbreaker/js/headbreaker.js"></script>
+</head>
+<body>
+  <!-- just add a div with an id... -->
+<div id="my-canvas">
+</div>
+
+<script>
+  // ...and a script with the following code:
+  let dali = new Image();
+  dali.src = 'img1.jpg';
+  dali.onload = () => {
+    const canvas = new headbreaker.Canvas('my-canvas', {
+      width: 800, height: 500, image: dali,
+	  pieceSize: 70,
+	  borderFill: 10, strokeWidth: 2,
+	  outline: new headbreaker.outline.Rounded(),
+	    preventOffstageDrag: true,
+    });
+	canvas.autoconnect();
+	canvas.scale(1);
+    canvas.autogenerate();
+    canvas.shuffle(0.7);
+    canvas.draw();
+	
+  }
+</script>
+</body>
+
+</html>
