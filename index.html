@@ -14,8 +14,8 @@
   dali.src = 'img1.jpg';
   dali.onload = () => {
     const canvas = new headbreaker.Canvas('my-canvas', {
-      width: 650, height: 800, image: dali,
-	  pieceSize: 100,
+      width: 800, height: 800, image: dali,
+	  pieceSize: 80,
 	  borderFill: 10, strokeWidth: 2,
 	  outline: new headbreaker.outline.Rounded(),
 	    preventOffstageDrag: true,
@@ -25,8 +25,8 @@
 	canvas.scale(1);
 	//canvas.adjustImagesToPuzzleHeight();
     canvas.autogenerate({
-    horizontalPiecesCount: 5,
-    verticalPiecesCount: 6,
+    horizontalPiecesCount: 4,
+    verticalPiecesCount: 5,
     insertsGenerator: headbreaker.generators.random
   });
     canvas.shuffle(0.7);
